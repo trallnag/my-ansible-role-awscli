@@ -1,0 +1,61 @@
+# ------------------------------------------------------------------------------
+
+
+- name: Import role trallnag.awscli
+  import_role:
+    name: trallnag.awscli
+  vars:
+    awscli_version: 2.4.5
+
+
+# ------------------------------------------------------------------------------
+# Bash
+
+
+- name: Add init block to {{ bash_profile_top }}
+  blockinfile:
+    path: "{{ bash_profile_top }}"
+    marker: "# {mark} :: ANSIBLE MANAGED BLOCK :: {{ role_name }}"
+    block: |
+      export PATH=/usr/local/aws/bin:$PATH
+      export AWS_PAGER=
+
+- name: Add init block to {{ bash_bashrc_middle }}
+  blockinfile:
+    path: "{{ bash_bashrc_middle }}"
+    marker: "# {mark} :: ANSIBLE MANAGED BLOCK :: {{ role_name }}"
+    block: |
+      complete -C /usr/local/bin/aws_completer aws
+
+
+# ------------------------------------------------------------------------------
+# Zsh
+
+
+- name: Add init block to {{ zsh_zprofile_bottom }}
+  blockinfile:
+    path: "{{ zsh_zprofile_bottom }}"
+    marker: "# {mark} :: ANSIBLE MANAGED BLOCK :: {{ role_name }}"
+    block: |
+      path+=/usr/local/aws/bin
+      export AWS_PAGER=
+  register: task
+
+- name: Compile {{ zsh_zprofile_bottom }}
+  when: task.changed
+  ansible.builtin.command: zsh -c 'zcompile -R {{ zsh_zprofile_bottom }}'
+
+- name: Add init block to {{ zshrc_bottom_after_comp_init }}
+  blockinfile:
+    path: "{{ zsh_zshrc_bottom_after_comp_init }}"
+    marker: "# {mark} :: ANSIBLE MANAGED BLOCK :: {{ role_name }}"
+    block: |
+      complete -C /usr/local/bin/aws_completer aws
+  register: task
+
+- name: Compile {{ zshrc_bottom_after_comp_init }}
+  when: task.changed
+  ansible.builtin.command: zsh -c 'zcompile -R {{ zsh_zshrc_bottom_after_comp_init }}'
+
+
+# ------------------------------------------------------------------------------
