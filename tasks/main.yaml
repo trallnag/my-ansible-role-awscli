@@ -45,7 +45,7 @@
   when: task.changed
   ansible.builtin.command: zsh -c 'zcompile -R {{ zsh_zprofile_bottom }}'
 
-- name: Add init block to {{ zshrc_bottom_after_comp_init }}
+- name: Add init block to {{ zsh_zshrc_bottom_after_comp_init }}
   blockinfile:
     path: "{{ zsh_zshrc_bottom_after_comp_init }}"
     marker: "# {mark} :: ANSIBLE MANAGED BLOCK :: {{ role_name }}"
@@ -53,7 +53,7 @@
       complete -C /usr/local/bin/aws_completer aws
   register: task
 
-- name: Compile {{ zshrc_bottom_after_comp_init }}
+- name: Compile {{ zsh_zshrc_bottom_after_comp_init }}
   when: task.changed
   ansible.builtin.command: zsh -c 'zcompile -R {{ zsh_zshrc_bottom_after_comp_init }}'
 
