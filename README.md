@@ -4,4 +4,4 @@
 
 # AWS CLI
 
-* <https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst>
+- <https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst>

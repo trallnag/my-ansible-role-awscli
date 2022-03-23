@@ -5,7 +5,7 @@
   import_role:
     name: trallnag.awscli
   vars:
-    awscli_version: 2.4.11
+    awscli_version: 2.4.27
 
 
 # ------------------------------------------------------------------------------
