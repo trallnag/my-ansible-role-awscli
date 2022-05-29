@@ -3,14 +3,12 @@
 
 # Ansible Role `awscli`
 
+- <https://github.com/aws/aws-cli>
 - <https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst>
 
 ## FAQ
 
-## Bump version of the AWS CLI?
-
-Get the version reference you want from the
-[official changelog](https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst).
+## Change version of the AWS CLI?
 
 Go to [`tasks/main.yaml`](tasks/main.yaml) and bump the version in the
 "Import role trallnag.awscli" task.
